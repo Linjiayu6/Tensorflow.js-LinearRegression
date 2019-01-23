@@ -5,7 +5,7 @@ import Draw from './Draw'
 
 class App extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       points: []
       // trains: 10

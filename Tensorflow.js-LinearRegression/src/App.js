@@ -19,13 +19,13 @@ class App extends Component {
     this.setState({ points: [ ...this.state.points, newPoints] })
   }
 
-  // shouldComponentUpdate (nextProps, nextState) {
-  //   // 将输入的内容, 放到模型里面去训练
-  //   if (nextState.points && nextState.points.length > 1) {
-  //     tensorflow.training(nextState.points)
-  //   }
-  //   return true
-  // }
+  shouldComponentUpdate (nextProps, nextState) {
+    // 将输入的内容, 放到模型里面去训练
+    if (nextState.points && nextState.points.length > 1) {
+      tensorflow.training(nextState.points)
+    }
+    return true
+  }
 
   render () {
     return (

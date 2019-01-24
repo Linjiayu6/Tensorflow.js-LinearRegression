@@ -23,7 +23,8 @@ class App extends Component {
     const { trainTimes } = nextState
 
     // 将输入的内容, 放到模型里面去训练
-    if (nextState.points && nextState.points.length > 1 && nextState.points.length % 9 === 0) {
+    // && nextState.points.length % 9 === 0
+    if (nextState.points && nextState.points.length > 1) {
       for (let index = 0; index < trainTimes; index++) {
         tensorflow.training(nextState.points)
       }

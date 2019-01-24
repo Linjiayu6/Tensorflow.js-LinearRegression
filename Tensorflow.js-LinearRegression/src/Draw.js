@@ -53,11 +53,9 @@ class Draw extends Component {
     if (points && points.length < 2) return
     const xs = [0, 1] // 两个点
     const ys = tfPredict(xs).dataSync() // 同步 https://js.tensorflow.org/api/latest/index.html#tf.Tensor.data
-    console.log(xs, ys)
     const { clientX: x1, clientY: y1 } = onTensorflowToSvgPoint({ x: xs[0], y: ys[0] })
     const { clientX: x2, clientY: y2 } = onTensorflowToSvgPoint({ x: xs[1], y: ys[1] })
     const lineProps = { x1, y1, x2, y2 }
-    console.log(lineProps)
     return (
       <line { ...lineProps } stroke="red" strokeWidth="2" />
     )

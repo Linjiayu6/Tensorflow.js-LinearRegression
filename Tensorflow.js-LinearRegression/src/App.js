@@ -9,8 +9,8 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      points: []
-      // trains: 10
+      points: [], // 所有收集的点
+      trainTimes: 10 // 一次数据, 训练10次
     };
   }
 
@@ -20,9 +20,13 @@ class App extends Component {
   }
 
   shouldComponentUpdate (nextProps, nextState) {
+    const { trainTimes } = nextState
+
     // 将输入的内容, 放到模型里面去训练
-    if (nextState.points && nextState.points.length > 1) {
-      tensorflow.training(nextState.points)
+    if (nextState.points && nextState.points.length > 1 && nextState.points.length % 9 === 0) {
+      for (let index = 0; index < trainTimes; index++) {
+        tensorflow.training(nextState.points)
+      }
     }
     return true
   }

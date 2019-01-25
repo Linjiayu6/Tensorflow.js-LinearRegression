@@ -31,6 +31,12 @@
   margin: 0 0 10px 0;
 }
 
+.btnreset {
+  margin-left: 20px;
+  background-color: #f4f4f5;
+  color: #909399;
+}
+
 .steps {
   margin: 10px;
   font-size: 12px;

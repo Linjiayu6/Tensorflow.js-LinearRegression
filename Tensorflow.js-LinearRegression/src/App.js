@@ -13,14 +13,9 @@ class App extends Component {
       a: 0,
       b: 0,
       points: [], // 所有收集的点
-      trainTimes: 10, // 一次数据, 训练10次,
+      trainTimes: 100, // 一次数据, 训练 100次,
       isTraining: false // 是否开始训练
     };
-  }
-
-  // 点击后, 收集数据
-  onChangePoints (newPoints) {
-    this.setState({ points: [ ...this.state.points, newPoints] })
   }
 
   shouldComponentUpdate (nextProps, nextState) {
@@ -30,6 +25,15 @@ class App extends Component {
         tensorflow.training({ points, trainTimes })
     }
     return true
+  }
+
+  // 点击后, 收集数据
+  onChangePoints (newPoints) {
+    this.setState({ points: [ ...this.state.points, newPoints] })
+  }
+
+  onSetState (item) {
+    this.setState(item)
   }
 
   render () {
@@ -45,7 +49,8 @@ class App extends Component {
         <Content
           isTraining={isTraining}
           points={points}
-          onClickBtn={() => { this.setState({ isTraining: true }) }}
+          onClickBtn={() => this.setState({ isTraining: true }) }
+          onResetBtn={() => this.setState({ isTraining: false, points: [] }) }
         />
       </div>
     );

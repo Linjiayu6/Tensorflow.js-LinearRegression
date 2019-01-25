@@ -13,7 +13,7 @@ class App extends Component {
       a: 0,
       b: 0,
       points: [], // 所有收集的点
-      trainTimes: 100, // 一次数据, 训练 100次,
+      trainTimes: 50, // 一次数据, 训练 50次,
       isTraining: false // 是否开始训练
     };
   }

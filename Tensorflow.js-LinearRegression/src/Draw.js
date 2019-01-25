@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 let svgWidth = 500;
-const svgHeight = 500;
+const svgHeight = 400;
 
 // 我们希望训练模型的数据均是在 0 - 1区间数值, 按照我们对当前图形传入值, 以及坐标位置变更, 需要做一次数据的转化。
 const onSvgPointToTensorflow = ({ clientX, clientY }) => ({
@@ -55,9 +55,9 @@ class Draw extends Component {
 
   // svg-line 画线
   renderDrawLine () {
-    const { tfPredict, points } = this.props
+    const { tfPredict, points, isTraining } = this.props
     // points.length < 2 && 
-    if (points && points.length < 2) return
+    if (!isTraining || (points && points.length < 2)) return
     const xs = [0, 1] // 两个点
     const ys = tfPredict(xs).dataSync() // 同步 https://js.tensorflow.org/api/latest/index.html#tf.Tensor.data
     const { clientX: x1, clientY: y1 } = onTensorflowToSvgPoint({ x: xs[0], y: ys[0] })

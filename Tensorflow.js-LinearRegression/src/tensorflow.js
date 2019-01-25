@@ -5,14 +5,14 @@ import * as tf from '@tensorflow/tfjs'
 // y = ax + b
 // 这里初始化a, b为随机数, 因为我们是需要a, b
 // 这里我们是从一个随机数开始的。也就意味着, 我们需要大量的训练才能计算出真正符合当前模型的值
-let a = tf.variable(tf.scalar(Math.random()))
-let b = tf.variable(tf.scalar(Math.random()))
+window.a = tf.variable(tf.scalar(Math.random()))
+window.b = tf.variable(tf.scalar(Math.random()))
 
 // 建立模型
 const model = (xs, a, b) => xs.mul(a).add(b)
 
 // 1. training, y值
-const training = (points, trainTimes) => {
+const training = ({ points, trainTimes }) => {
   for (var i = 0; i < trainTimes; i++) {
     // 4. 优化器 https://codertw.com/%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80/518746/
     // 因為大多數機器學習任務就是最小化損失
@@ -43,7 +43,7 @@ const predict = x => {
   return tf.tidy(() => {
     const xs = tf.tensor1d(x)
     // 预测的y值 建立模型
-    const predictYs = model(xs, a, b)
+    const predictYs = model(xs, window.a, window.b)
     return predictYs
   })
 }

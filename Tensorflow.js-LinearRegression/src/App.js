@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import './assets/App.css'
 import Draw from './Draw'
+import Content from './Content'
 
 import tensorflow from './tensorflow'
 
@@ -9,8 +10,11 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      a: 0,
+      b: 0,
       points: [], // 所有收集的点
-      trainTimes: 10 // 一次数据, 训练10次
+      trainTimes: 10, // 一次数据, 训练10次,
+      isTraining: false // 是否开始训练
     };
   }
 
@@ -20,21 +24,28 @@ class App extends Component {
   }
 
   shouldComponentUpdate (nextProps, nextState) {
+    const { points, trainTimes } = nextState
     // 将输入的内容, 放到模型里面去训练
-    if (nextState.points && nextState.points.length > 1) {
-        tensorflow.training(nextState.points, nextState.trainTimes)
+    if (points && points.length > 1) {
+        tensorflow.training({ points, trainTimes })
     }
     return true
   }
 
   render () {
-    const { points } = this.state
+    const { points, isTraining } = this.state
     return (
       <div className="app">
         <Draw
           onChangePoints={(newPoints) => this.onChangePoints(newPoints)}
           points={points}
           tfPredict={(linePoint) => tensorflow.predict(linePoint)}
+          isTraining={isTraining}
+        />
+        <Content
+          isTraining={isTraining}
+          points={points}
+          onClickBtn={() => { this.setState({ isTraining: true }) }}
         />
       </div>
     );

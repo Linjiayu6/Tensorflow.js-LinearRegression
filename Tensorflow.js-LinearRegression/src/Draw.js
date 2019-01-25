@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-const svgWidth = 500;
+let svgWidth = 500;
 const svgHeight = 500;
 
 // 我们希望训练模型的数据均是在 0 - 1区间数值, 按照我们对当前图形传入值, 以及坐标位置变更, 需要做一次数据的转化。
@@ -27,6 +27,12 @@ class Draw extends Component {
       }
     }
   }
+
+  componentDidMount () {
+    const { width } = this.svg.getBoundingClientRect()
+    svgWidth = width
+  }
+
   // 点击圆圈操作 将数据传入至state中
   onAddCircle ({ clientX, clientY }) {
     const { onChangePoints } = this.props
@@ -67,10 +73,10 @@ class Draw extends Component {
     return (
       <svg
         ref={e => (this.svg = e)}
-        width={svgWidth}
+        width="100%"
         height={svgHeight}
         style={{ background: "#282c34" }}
-        onMouseDown={e => this.onAddCircle(e)}
+        onClick={e => this.onAddCircle(e)}
       >
         { this.renderDrawCircle() }
         { this.renderDrawLine() }

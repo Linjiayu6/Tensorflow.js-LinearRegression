@@ -12,29 +12,29 @@ let b = tf.variable(tf.scalar(Math.random()))
 const model = (xs, a, b) => xs.mul(a).add(b)
 
 // 1. training, y值
-const training = points => {
-  // 4. 优化器 https://codertw.com/%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80/518746/
-  // 因為大多數機器學習任務就是最小化損失
-  const learningRate = 0.1
-  const optimizer = tf.train.sgd(learningRate);
-  // ========================================================================
+const training = (points, trainTimes) => {
+  for (var i = 0; i < trainTimes; i++) {
+    // 4. 优化器 https://codertw.com/%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80/518746/
+    // 因為大多數機器學習任務就是最小化損失
+    // 学习率: 
+    const learningRate = 0.1
+    const optimizer = tf.train.sgd(learningRate);
+    // ========================================================================
 
-  const ys = tf.tensor1d(points.map(points => points.y))
-  console.log('输入y', ys.toString())
-  // const predictYs = predict(points.map((points) => points.x))
-  // console.log('预测值', predictYs.toString())
+    const ys = tf.tensor1d(points.map(points => points.y))
+    console.log('输入y', ys.toString())
+    // const predictYs = predict(points.map((points) => points.x))
+    // console.log('预测值', predictYs.toString())
 
-  // 训练一次, 计算有损函数
-  // 机器学习就是一个不断训练、评价迭代的模型训练过程，训练得越好，则未来预测得越准确。
-  // 一次肯定是不够的, 而且我们还需要明确的是, 将损失降到最低
-  // const lossFn = loss(predictYs, ys)
-  // console.log('均方差值', lossFn.toString())
+    // 训练一次, 计算有损函数
+    // 机器学习就是一个不断训练、评价迭代的模型训练过程，训练得越好，则未来预测得越准确。
+    // 一次肯定是不够的, 而且我们还需要明确的是, 将损失降到最低
+    // const lossFn = loss(predictYs, ys)
+    // console.log('均方差值', lossFn.toString())
 
-  // 优化器优化的是 如何去把损失降低到最低
-  // optimizer.minimize(() => loss(predictYs, ys))
-
-  // optimizer.minimize(() => loss(predict(points.map(point => point.x)), ys));
-  optimizer.minimize(() => loss(predict(points.map((points) => points.x)), ys));
+    // 优化器优化的是 如何去把损失降低到最低
+    optimizer.minimize(() => loss(predict(points.map((points) => points.x)), ys));
+  }
 }
 
 // 2. predict, x值输入, 线性方程 y = ax + b

@@ -50,6 +50,7 @@ class Draw extends Component {
   // svg-line 画线
   renderDrawLine () {
     const { tfPredict, points } = this.props
+    // points.length < 2 && 
     if (points && points.length < 2) return
     const xs = [0, 1] // 两个点
     const ys = tfPredict(xs).dataSync() // 同步 https://js.tensorflow.org/api/latest/index.html#tf.Tensor.data

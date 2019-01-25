@@ -20,24 +20,20 @@ class App extends Component {
   }
 
   shouldComponentUpdate (nextProps, nextState) {
-    const { trainTimes } = nextState
-
     // 将输入的内容, 放到模型里面去训练
-    // && nextState.points.length % 9 === 0
     if (nextState.points && nextState.points.length > 1) {
-      for (let index = 0; index < trainTimes; index++) {
-        tensorflow.training(nextState.points)
-      }
+        tensorflow.training(nextState.points, nextState.trainTimes)
     }
     return true
   }
 
   render () {
+    const { points } = this.state
     return (
       <div className="app">
         <Draw
           onChangePoints={(newPoints) => this.onChangePoints(newPoints)}
-          points={this.state.points}
+          points={points}
           tfPredict={(linePoint) => tensorflow.predict(linePoint)}
         />
       </div>
